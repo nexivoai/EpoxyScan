@@ -1,4 +1,4 @@
-# EpoxyScan
+# EpoxyScan AI
 
 Photo-based lead intake and preliminary epoxy-floor estimates, confirmed by a 
 contractor. Customers upload floor photos → AI assessment → pricing engine →
