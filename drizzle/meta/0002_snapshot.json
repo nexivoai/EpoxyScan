@@ -1,0 +1,498 @@
+{
+  "id": "9727b8d7-2f16-4335-ad15-c7291478b96d",
+  "prevId": "d7814af2-bd41-4d44-94b0-99667c2a1a4d",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.photos": {
+      "name": "photos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "submission_id": {
+          "name": "submission_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pathname": {
+          "name": "pathname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_type": {
+          "name": "content_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bytes": {
+          "name": "bytes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "width": {
+          "name": "width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sort_order": {
+          "name": "sort_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "photos_submission_id_submissions_id_fk": {
+          "name": "photos_submission_id_submissions_id_fk",
+          "tableFrom": "photos",
+          "tableTo": "submissions",
+          "columnsFrom": [
+            "submission_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.submissions": {
+      "name": "submissions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "customer_name": {
+          "name": "customer_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_phone": {
+          "name": "customer_phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_email": {
+          "name": "customer_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "consent_at": {
+          "name": "consent_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_sqft": {
+          "name": "customer_sqft",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "requested_finish": {
+          "name": "requested_finish",
+          "type": "finish_system",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "submission_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending_ai'"
+        },
+        "attempt_count": {
+          "name": "attempt_count",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "processing_started_at": {
+          "name": "processing_started_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_project_type": {
+          "name": "ai_project_type",
+          "type": "project_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_sqft_low": {
+          "name": "ai_sqft_low",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_sqft_high": {
+          "name": "ai_sqft_high",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_crack_severity": {
+          "name": "ai_crack_severity",
+          "type": "crack_severity",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_recommended_system": {
+          "name": "ai_recommended_system",
+          "type": "finish_system",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_complexity": {
+          "name": "ai_complexity",
+          "type": "prep_complexity",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_image_quality": {
+          "name": "ai_image_quality",
+          "type": "image_quality",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_confidence": {
+          "name": "ai_confidence",
+          "type": "numeric(4, 3)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_surface_flags": {
+          "name": "ai_surface_flags",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_raw": {
+          "name": "ai_raw",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ai_error": {
+          "name": "ai_error",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_low": {
+          "name": "price_low",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_high": {
+          "name": "price_high",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sqft_used": {
+          "name": "sqft_used",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sqft_source": {
+          "name": "sqft_source",
+          "type": "sqft_source",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prep_multiplier": {
+          "name": "prep_multiplier",
+          "type": "numeric(4, 2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price_block_reason": {
+          "name": "price_block_reason",
+          "type": "price_block_reason",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "needs_verification": {
+          "name": "needs_verification",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "verification_reason": {
+          "name": "verification_reason",
+          "type": "verification_reason",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "review_token": {
+          "name": "review_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "result_token": {
+          "name": "result_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "links_expire_at": {
+          "name": "links_expire_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contractor_price_low": {
+          "name": "contractor_price_low",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_price_high": {
+          "name": "contractor_price_high",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_system": {
+          "name": "contractor_system",
+          "type": "finish_system",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_notes": {
+          "name": "contractor_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "approved_at": {
+          "name": "approved_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_notified_at": {
+          "name": "contractor_notified_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_notified_at": {
+          "name": "customer_notified_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_message_sid": {
+          "name": "contractor_message_sid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_message_sid": {
+          "name": "customer_message_sid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "submissions_review_token_unique": {
+          "name": "submissions_review_token_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "review_token"
+          ]
+        },
+        "submissions_result_token_unique": {
+          "name": "submissions_result_token_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "result_token"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.crack_severity": {
+      "name": "crack_severity",
+      "schema": "public",
+      "values": [
+        "none",
+        "minor",
+        "moderate",
+        "major"
+      ]
+    },
+    "public.finish_system": {
+      "name": "finish_system",
+      "schema": "public",
+      "values": [
+        "flake",
+        "metallic",
+        "polyaspartic"
+      ]
+    },
+    "public.image_quality": {
+      "name": "image_quality",
+      "schema": "public",
+      "values": [
+        "good",
+        "fair",
+        "poor"
+      ]
+    },
+    "public.prep_complexity": {
+      "name": "prep_complexity",
+      "schema": "public",
+      "values": [
+        "standard",
+        "moderate",
+        "heavy"
+      ]
+    },
+    "public.price_block_reason": {
+      "name": "price_block_reason",
+      "schema": "public",
+      "values": [
+        "commercial",
+        "polyaspartic",
+        "major_crack",
+        "insufficient_data"
+      ]
+    },
+    "public.project_type": {
+      "name": "project_type",
+      "schema": "public",
+      "values": [
+        "garage",
+        "basement",
+        "commercial",
+        "other"
+      ]
+    },
+    "public.sqft_source": {
+      "name": "sqft_source",
+      "schema": "public",
+      "values": [
+        "customer",
+        "ai_midpoint"
+      ]
+    },
+    "public.submission_status": {
+      "name": "submission_status",
+      "schema": "public",
+      "values": [
+        "pending_ai",
+        "processing",
+        "ai_complete",
+        "ai_failed",
+        "inspection_required",
+        "approved"
+      ]
+    },
+    "public.verification_reason": {
+      "name": "verification_reason",
+      "schema": "public",
+      "values": [
+        "low_confidence",
+        "poor_image_quality"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
