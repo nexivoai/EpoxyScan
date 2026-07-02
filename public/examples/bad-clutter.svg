@@ -1,0 +1,21 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="180" fill="#f1f5f9" />
+  <rect y="118" width="320" height="62" fill="#cbd5e1" />
+  <rect x="106" y="30" width="108" height="88" fill="#9aa7b8" />
+  <g stroke="#7c8aa0" stroke-width="2">
+    <line x1="106" y1="52" x2="214" y2="52" />
+    <line x1="106" y1="74" x2="214" y2="74" />
+  </g>
+  <rect x="36" y="104" width="54" height="50" fill="#b08968" />
+  <rect x="44" y="104" width="38" height="14" fill="#caa472" />
+  <rect x="96" y="126" width="42" height="30" fill="#caa472" />
+  <rect x="214" y="110" width="50" height="44" fill="#b08968" />
+  <rect x="222" y="110" width="34" height="12" fill="#caa472" />
+  <g stroke="#6b7280" stroke-width="3" stroke-linecap="round">
+    <line x1="150" y1="156" x2="172" y2="100" />
+    <line x1="184" y1="156" x2="172" y2="100" />
+    <line x1="158" y1="142" x2="178" y2="142" />
+    <line x1="163" y1="126" x2="180" y2="126" />
+    <line x1="167" y1="112" x2="181" y2="112" />
+  </g>
+</svg>
