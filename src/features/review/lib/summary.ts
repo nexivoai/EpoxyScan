@@ -10,6 +10,7 @@ import {
 import { RATE_CARD } from '@/constants/rate-card'
 import { formatPriceRange } from '@/lib/format'
 import type { Submission } from '@/types/db'
+import { isIrrelevantSubject } from '@/types/domain'
 import { REVIEW_CONTENT } from '../constants'
 
 export interface ReviewSummaryView {
@@ -24,7 +25,9 @@ export interface ReviewSummaryView {
   confidence: string
   surfaceFlags: string
   priceText: string
-  verificationText: string | null
+  needsVerification: boolean
+  verificationReasonLabel: string | null
+  isNotFloor: boolean
 }
 
 export function toReviewSummaryView(submission: Submission): ReviewSummaryView {
@@ -71,10 +74,10 @@ export function toReviewSummaryView(submission: Submission): ReviewSummaryView {
         : submission.priceBlockReason
           ? PRICE_BLOCK_REASON_LABELS[submission.priceBlockReason]
           : estimate.blockedLabel,
-    verificationText: submission.needsVerification
-      ? submission.verificationReason
-        ? `${estimate.verification}: ${VERIFICATION_REASON_LABELS[submission.verificationReason]}`
-        : estimate.verification
+    needsVerification: submission.needsVerification,
+    verificationReasonLabel: submission.verificationReason
+      ? VERIFICATION_REASON_LABELS[submission.verificationReason]
       : null,
+    isNotFloor: isIrrelevantSubject(submission.verificationReason),
   }
 }

@@ -44,6 +44,7 @@ export const PRICE_BLOCK_REASON_LABELS: Record<PriceBlockReason, string> = {
 export const VERIFICATION_REASON_LABELS: Record<VerificationReason, string> = {
   low_confidence: 'Low AI confidence',
   poor_image_quality: 'Poor image quality',
+  irrelevant_subject: 'Photos are not of a floor',
 }
 
 export const SURFACE_FLAG_LABELS: Record<(typeof SURFACE_FLAGS)[number], string> = {

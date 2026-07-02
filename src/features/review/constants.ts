@@ -36,7 +36,11 @@ export const REVIEW_CONTENT = {
     priceLabel: 'AI estimate',
     blockedLabel: 'Auto-pricing unavailable',
     inspection: 'On-site inspection required',
-    verification: 'Flagged for verification',
+  },
+  verification: {
+    heading: 'Flagged for verification',
+    notFloorAssessment:
+      'These photos do not appear to show a floor, so no AI assessment was generated. Review the photos before pricing.',
   },
   form: {
     title: 'Approve & send',

@@ -51,18 +51,32 @@ export function ReviewSummary({ submission, photos }: { submission: Submission; 
       </Section>
 
       <Section title={c.sections.assessment}>
-        <dl className="grid grid-cols-2 gap-4">
-          <Field label={c.assessment.projectType} value={view.projectType} />
-          <Field label={c.assessment.sqftRange} value={view.sqftRange} />
-          <Field label={c.assessment.recommendedSystem} value={view.recommendedSystem} />
-          <Field label={c.assessment.crackSeverity} value={view.crackSeverity} />
-          <Field label={c.assessment.complexity} value={view.complexity} />
-          <Field label={c.assessment.imageQuality} value={view.imageQuality} />
-          <Field label={c.assessment.confidence} value={view.confidence} />
-          <div className="col-span-2">
-            <Field label={c.assessment.surfaceFlags} value={view.surfaceFlags} />
-          </div>
-        </dl>
+        {view.isNotFloor ? (
+          <p className="text-sm text-muted-foreground">{c.verification.notFloorAssessment}</p>
+        ) : (
+          <>
+            {view.needsVerification && (
+              <div className="flex flex-col gap-0.5 border-l-2 border-amber-500 pl-3">
+                <p className="text-sm font-semibold text-amber-600">{c.verification.heading}</p>
+                {view.verificationReasonLabel && (
+                  <p className="text-sm text-amber-600">{view.verificationReasonLabel}</p>
+                )}
+              </div>
+            )}
+            <dl className="grid grid-cols-2 gap-4">
+              <Field label={c.assessment.projectType} value={view.projectType} />
+              <Field label={c.assessment.sqftRange} value={view.sqftRange} />
+              <Field label={c.assessment.recommendedSystem} value={view.recommendedSystem} />
+              <Field label={c.assessment.crackSeverity} value={view.crackSeverity} />
+              <Field label={c.assessment.complexity} value={view.complexity} />
+              <Field label={c.assessment.imageQuality} value={view.imageQuality} />
+              <Field label={c.assessment.confidence} value={view.confidence} />
+              <div className="col-span-2">
+                <Field label={c.assessment.surfaceFlags} value={view.surfaceFlags} />
+              </div>
+            </dl>
+          </>
+        )}
       </Section>
 
       <Section title={c.sections.estimate}>
@@ -70,7 +84,6 @@ export function ReviewSummary({ submission, photos }: { submission: Submission; 
         {submission.status === 'inspection_required' && (
           <p className="text-sm text-amber-600">{c.estimate.inspection}</p>
         )}
-        {view.verificationText && <p className="text-sm text-amber-600">{view.verificationText}</p>}
       </Section>
     </>
   )

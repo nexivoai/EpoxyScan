@@ -27,9 +27,23 @@ function resolveSqft(input: EstimateInput): { sqft: number | null; source: SqftS
 }
 
 export function calculateEstimate(input: EstimateInput): EstimateResult {
+  const prepMultiplier = RATE_CARD.prepMultipliers[input.prepComplexity]
+
+  if (!input.isFloor) {
+    return {
+      priced: false,
+      priceLow: null,
+      priceHigh: null,
+      blockReason: 'insufficient_data',
+      requiresInspection: false,
+      sqftUsed: null,
+      sqftSource: null,
+      prepMultiplier,
+    }
+  }
+
   const system = RATE_CARD.systems[input.system]
   const typeMinimum = RATE_CARD.projectMinimums[input.projectType]
-  const prepMultiplier = RATE_CARD.prepMultipliers[input.prepComplexity]
   const { sqft, source } = resolveSqft(input)
 
   const result: EstimateResult = {

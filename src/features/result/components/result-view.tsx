@@ -3,12 +3,14 @@ import { LIABILITY_COPY } from '@/constants/liability'
 import { RATE_CARD } from '@/constants/rate-card'
 import { formatPriceRange } from '@/lib/format'
 import type { Submission } from '@/types/db'
+import { isIrrelevantSubject } from '@/types/domain'
 import { RESULT_CONTENT } from '../constants'
 
 export function ResultView({ submission }: { submission: Submission }) {
   const c = RESULT_CONTENT
   const { contractorPriceLow: low, contractorPriceHigh: high } = submission
   const approved = submission.status === 'approved'
+  const notFloor = isIrrelevantSubject(submission.verificationReason)
 
   return (
     <main className="mx-auto flex w-full max-w-lg flex-1 flex-col justify-center gap-6 px-6 py-10">
@@ -35,6 +37,11 @@ export function ResultView({ submission }: { submission: Submission }) {
                 </div>
               )}
               <p className="text-sm text-muted-foreground">{c.approved.body}</p>
+            </>
+          ) : notFloor ? (
+            <>
+              <h2 className="text-lg font-semibold">{c.notFloor.title}</h2>
+              <p className="text-sm text-muted-foreground">{c.notFloor.body}</p>
             </>
           ) : (
             <>

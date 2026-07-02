@@ -12,6 +12,7 @@ export interface EstimateInput {
   projectType: ProjectType
   prepComplexity: PrepComplexity
   crackSeverity: CrackSeverity
+  isFloor: boolean
   customerSqft?: number | null
   aiSqftLow?: number | null
   aiSqftHigh?: number | null

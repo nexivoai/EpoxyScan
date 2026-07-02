@@ -41,6 +41,9 @@ function reviewFlags(analysis: AnalysisResult): {
   needsVerification: boolean
   verificationReason: VerificationReason | null
 } {
+  if (!analysis.isFloor) {
+    return { needsVerification: true, verificationReason: 'irrelevant_subject' }
+  }
   if (analysis.imageQuality === 'poor') {
     return { needsVerification: true, verificationReason: 'poor_image_quality' }
   }
@@ -122,6 +125,7 @@ export async function processSubmission(id: string): Promise<void> {
       projectType: analysis.projectType,
       prepComplexity: analysis.complexity,
       crackSeverity: analysis.crackSeverity,
+      isFloor: analysis.isFloor,
       customerSqft: claimed.customerSqft,
       aiSqftLow: analysis.sqftLow,
       aiSqftHigh: analysis.sqftHigh,

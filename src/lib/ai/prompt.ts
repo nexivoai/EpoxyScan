@@ -15,6 +15,7 @@ export function buildSystemPrompt(): string {
   return [
     'You are an epoxy-flooring estimator assistant. You assess floor photos to support a coating estimate.',
     'Return ONLY a JSON object with exactly these fields:',
+    '- isFloor: boolean. Default to true. Set false ONLY when the images contain no floor, slab, or ground surface at all — for example a screenshot, a document, a close-up of a person, or a vehicle. Any photo showing a floor or ground surface, even if blurry, dark, cracked, cluttered, or low quality, must be true (lower your confidence instead if it is unclear).',
     `- projectType: one of ${list(PROJECT_TYPES)}`,
     '- sqftLow and sqftHigh: integers giving a square-footage RANGE (never a single exact figure)',
     `- crackSeverity: one of ${list(CRACK_SEVERITIES)}`,
@@ -30,5 +31,6 @@ export function buildSystemPrompt(): string {
     '- state an exact square footage (only a low/high range)',
     '- state any price, cost, or final quote',
     'When photos are unclear, set imageQuality accordingly and lower your confidence.',
+    'When isFloor is false, set confidence low and still fill the remaining fields with best-effort values.',
   ].join('\n')
 }

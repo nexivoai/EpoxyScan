@@ -18,7 +18,11 @@ export const PRICE_BLOCK_REASONS = [
   'insufficient_data',
 ] as const
 export const SQFT_SOURCES = ['customer', 'ai_midpoint'] as const
-export const VERIFICATION_REASONS = ['low_confidence', 'poor_image_quality'] as const
+export const VERIFICATION_REASONS = [
+  'low_confidence',
+  'poor_image_quality',
+  'irrelevant_subject',
+] as const
 
 export type FinishSystem = (typeof FINISH_SYSTEMS)[number]
 export type ProjectType = (typeof PROJECT_TYPES)[number]
@@ -29,3 +33,7 @@ export type SubmissionStatus = (typeof SUBMISSION_STATUSES)[number]
 export type PriceBlockReason = (typeof PRICE_BLOCK_REASONS)[number]
 export type SqftSource = (typeof SQFT_SOURCES)[number]
 export type VerificationReason = (typeof VERIFICATION_REASONS)[number]
+
+export function isIrrelevantSubject(reason: VerificationReason | null): boolean {
+  return reason === 'irrelevant_subject'
+}
